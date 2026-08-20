@@ -138,13 +138,6 @@ func (r *DailyRecord) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func dailyRecordWriteError(err error) error {
-	if err == nil {
-		return nil
-	}
-	return fmt.Errorf("write daily record: %v", err)
-}
-
 type Page[T any] struct {
 	List     []T `json:"list"`
 	Total    int `json:"total"`

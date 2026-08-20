@@ -35,7 +35,7 @@ func (s *Service) AddRecord(ctx context.Context, p Principal, input DailyRecord)
 	now := formatStoredTime(s.now())
 	result, err := s.store.db.ExecContext(ctx, `INSERT INTO daily_records(order_id,record_date,diet,defecation,activity,spirit,remarks,media_urls,create_time,update_time) VALUES(?,?,?,?,?,?,?,?,?,?)`, input.OrderID, recordDate.Format("2006-01-02"), input.Diet, input.Defecation, input.Activity, input.Spirit, input.Remarks, input.MediaURLs, now, now)
 	if err != nil {
-		return DailyRecord{}, dailyRecordWriteError(err)
+		return DailyRecord{}, translateServiceError(err)
 	}
 	id, err := result.LastInsertId()
 	if err != nil {
